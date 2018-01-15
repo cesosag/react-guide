@@ -1,6 +1,7 @@
 import React, { PureComponent } from 'react';
 import styles from './App.sass';
 import Person from './Person/Person';
+import ErrorHandler from './Error/ErrorHandler';
 
 class App extends PureComponent {
   state = {
@@ -48,12 +49,13 @@ class App extends PureComponent {
         <ul>
           {this.state.persons.map((person) => {
             return (
-            <Person
-              key={person.id}
-              name={person.name}
-              age={person.age}
-              click={this.deletePersonHandler.bind(this, person.id)}
-              changed={(event) => this.nameChangedHandler(event, person.id)} />
+              <ErrorHandler key={person.id}>
+                <Person
+                  name={person.name}
+                  age={person.age}
+                  click={this.deletePersonHandler.bind(this, person.id)}
+                  changed={(event) => this.nameChangedHandler(event, person.id)} />
+              </ErrorHandler>
             )
           })}
         </ul>
