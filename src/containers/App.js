@@ -1,7 +1,8 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent, Fragment } from 'react';
 import styles from './App.sass';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Persons/Persons';
+import withClass from '../components/hoc/WithClass';
 
 class App extends PureComponent {
   constructor(props){
@@ -14,7 +15,8 @@ class App extends PureComponent {
         {id: 'zdqr12', name: 'Andrea', age: 28},
         {id: 'asd215', name: 'Ernesto', age: 30}
       ],
-      showPersons: false
+      showPersons: false,
+      toggleClickCounter: 0
     }
   }
 
@@ -50,7 +52,12 @@ class App extends PureComponent {
   }
 
   togglePersonsHandler = () => {
-    this.setState({showPersons: !this.state.showPersons});
+    this.setState((prevState, props) => {
+      return {
+        showPersons: !this.state.showPersons,
+        toggleClickCounter: ++prevState.toggleClickCounter
+      }
+    });
   }
 
   render = () => {
@@ -69,12 +76,12 @@ class App extends PureComponent {
     }
 
     return (
-      <div className={styles.App}>
+      <Fragment>
         <Cockpit appTitle={this.props.appTitle} persons={this.state.persons} toggle={this.togglePersonsHandler} />
         {persons}
-      </div>
+      </Fragment>
     );
   }
 }
 
-export default App;
+export default withClass(App, styles.App);

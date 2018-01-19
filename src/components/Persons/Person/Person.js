@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './Person.sass';
 
 const person = (props) => {
@@ -10,5 +11,13 @@ const person = (props) => {
 		</li>
 	)
 }
+
+person.propTypes = {
+	click: PropTypes.func,
+	name: PropTypes.string,
+	age: PropTypes.number,
+	changed: PropTypes.func,
+	children: PropTypes.node
+};
 
 export default person;
